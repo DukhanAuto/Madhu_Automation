@@ -1,0 +1,77 @@
+﻿
+''This function is used for login scenario
+''======================================================================
+
+
+Function LoginInfo(StrUsername,StrPassword)
+
+	StrUsername = datatable.Value("USERNAME",Global)
+       Strpassword = datatable.Value("PASSWORD",Global)
+       
+
+Browser("Dukhan Bank").Page("Dukhan Bank").WebEdit("Username").Set StrUsername
+Browser("Dukhan Bank").Page("Dukhan Bank").WebEdit("Password").Set Strpassword
+Browser("Dukhan Bank").Page("Dukhan Bank").WebButton("Login").Click
+
+
+     If Browser("Dukhan Bank").Page("Dukhan Bank").WebElement("signOut").Exist(5) Then
+	
+       Reporter.ReportEvent micPass,"Launch Application","Application has been launched successfully"
+       Else 
+       Reporter.ReportEvent micFail,"Launch Application","Application has been not been launched"
+       End If
+
+End Function
+Function Login(strUserName,strPassword)
+	
+	strUserName=datatable.Value("UserName",Global)
+	strPassword=datatable.Value("Password",Global)
+	
+browser("Dukhan Bank").Page("Dukhan Bank").WebEdit("Username").Set strUserName
+browser("Dukhan Bank").Page("Dukhan Bank").WebEdit("Password").Set strPassword
+browser("Dukhan Bank").Page("Dukhan Bank").WebButton("Login").Click
+	
+	  If browser("Dukhan Bank").Page("Dukhan Bank").WebButton("Login").Exist(5) Then
+	
+       Reporter.ReportEvent micPass,"Launch Application","Application has been launched successfully"
+       Else 
+       Reporter.ReportEvent micFail,"Launch Application","Application has  not been launched"
+       End If
+	
+End Function
+
+
+''This function is used to generate current date
+''==========================================================
+
+Function CurrentDate()
+
+	NewDate = Date
+	
+End Function
+
+''This function is used to generate previous date
+''======================================================================
+Function StrPreviousMonthDate(Minterval,months,Strdate)
+
+      Dim ONewDate
+    	ONewDate = Dateadd(Minterval,months,Strdate)
+	StrPreviousMonthDate = ONewDate
+
+End Function
+
+Function Logout()
+
+	Browser("Dukhan Bank").Page("Dukhan Bank").WebElement("signOut").Click
+	wait(3)	
+	 If browser("Dukhan Bank").Page("Dukhan Bank").WebButton("Yes").Exist(5) Then
+	Browser("Dukhan Bank").Page("Dukhan Bank").WebButton("Yes").Click
+      Reporter.ReportEvent micPass,"Launch Application","Application has been logout successfully"
+       Else 
+       Reporter.ReportEvent micFail,"Launch Application","Application has not been lagout"
+     End If 
+	
+End Function
+
+
+
